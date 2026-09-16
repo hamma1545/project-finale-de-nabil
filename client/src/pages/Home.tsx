@@ -69,11 +69,8 @@ const policies = [
 function formatDate(value: string | null) {
   if (!value) return "Not provided";
   const raw = String(value).trim();
-  const isoDate = raw.match(/^(\d{4})-(\d{2})-(\d{2})/);
-  if (isoDate) return `${isoDate[3]}/${isoDate[2]}/${isoDate[1]}`;
-  const parsed = new Date(raw);
-  if (Number.isNaN(parsed.getTime())) return "Not provided";
-  return `${String(parsed.getDate()).padStart(2, "0")}/${String(parsed.getMonth() + 1).padStart(2, "0")}/${parsed.getFullYear()}`;
+  const match = raw.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  return match ? `${match[3]}/${match[2]}/${match[1]}` : "Not provided";
 }
 
 function formatAcademicYear() {
