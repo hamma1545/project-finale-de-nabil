@@ -68,8 +68,16 @@ const policies = [
 
 function formatDate(value: string | null) {
   if (!value) return "Not provided";
-  const [year, month, day] = value.split("-");
-  return `${day}/${month}/${year}`;
+  const raw = String(value).trim();
+  const isoDate = raw.match(/^(\d{4})-(\d{2})-(\d{2})/);
+  if (isoDate) return `${isoDate[3]}/${isoDate[2]}/${isoDate[1]}`;
+  const parsed = new Date(raw);
+  if (Number.isNaN(parsed.getTime())) return "Not provided";
+  return `${String(parsed.getDate()).padStart(2, "0")}/${String(parsed.getMonth() + 1).padStart(2, "0")}/${parsed.getFullYear()}`;
+}
+
+function formatAcademicYear() {
+  return "2025/2026";
 }
 
 function Brand() {
@@ -135,7 +143,7 @@ function Result({ certificate }: { certificate: Certificate }) {
         <div><small>Numéro de passeport</small><strong>{certificate.passport_number}</strong></div>
         <div><small>Date de naissance</small><strong>{formatDate(certificate.date_of_birth)}</strong></div>
         <div><small>Type de formation</small><strong>{certificate.course_name}</strong></div>
-        <div><small>Date du certificat</small><strong>{formatDate(certificate.issue_date)}</strong></div>
+        <div><small>Date du certificat</small><strong>{formatAcademicYear()}</strong></div>
         <div><small>Statut</small><strong>{certificate.status}</strong></div>
       </div>
     </div>
