@@ -9,5 +9,8 @@ export default defineConfig({
   root: path.resolve(import.meta.dirname, "client"),
   publicDir: path.resolve(import.meta.dirname, "client/public"),
   envDir: path.resolve(import.meta.dirname),
-  build: { outDir: path.resolve(import.meta.dirname, "dist"), emptyOutDir: true },
+  build: {
+    outDir: path.resolve(import.meta.dirname, "client/dist"),
+    emptyOutDir: true,
+  },
 });
